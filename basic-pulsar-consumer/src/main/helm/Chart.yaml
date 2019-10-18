@@ -1,0 +1,10 @@
+name: basic-pulsar-consumer
+version: 0.1.0
+appVersion: 0.1.0
+description: Deploys a simple job running a pulsar producer consuming messages
+source: 
+  - https://github.com/syscrest/pulsar-on-kubernetes
+maintainer:
+  - name: Thomas Memenga
+    email: t.memenga@syscrest.com
+icon:

@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'com.google.cloud.tools.jib' version '1.7.0'
+}
+
+group = 'alvary-pulsar'
+version = 'latest'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    
+    compile group: 'org.apache.pulsar', name: 'pulsar-client', version:'2.4.0'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version:'1.7.21'
+	compile group: 'com.beust', name: 'jcommander', version: '1.78'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
+
+jib {
+    to {
+    	image = 'registry.hub.docker.com/syscrest/blog-post-basic-pulsar-producer'
+    }
+    container {
+        mainClass = 'com.syscrest.demo.basicpulsarproducer.BasicPulsarProducer'
+    }
+}

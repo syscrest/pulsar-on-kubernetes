@@ -1,0 +1,24 @@
+deploymentApiVersion: apps/v1
+
+fullnameOverride: ""
+replicaCount: 1
+parallelismCount: 1
+
+image: registry.hub.docker.com/syscrest/blog-post-basic-pulsar-producer
+imageTag: latest
+imagePullPolicy: Always
+
+javaToolOptions: "-Xmx1024m -Xms512m"
+
+producer:
+  topic: "my-basic-messages-in-json"
+  brokerServiceURL : "pulsar://pulsar-broker:6650"
+  waitMs: 1000
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 250m
+    memory: 1Gi
+

@@ -1,0 +1,35 @@
+apiVersion: {{ .Values.deploymentApiVersion }}
+kind: Deployment
+metadata:
+  name: {{ template "basic-pulsar-consumer.fullname" . }}
+  labels:
+    app: {{ template "basic-pulsar-consumer.name" . }}
+    chart: {{ template "basic-pulsar-consumer.chart" . }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "basic-pulsar-consumer.name" . }}
+  replicas: {{ .Values.replicaCount }} 
+  template:
+    metadata:
+      labels:
+        app: {{ template "basic-pulsar-consumer.name" . }}
+    spec: 
+      containers:
+      - name: {{ template "basic-pulsar-consumer.name" . }}
+        image: "{{ .Values.image }}:{{ tpl .Values.imageTag . }}"
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
+        env:
+          - name: JAVA_TOOL_OPTIONS
+            value: {{ .Values.javaToolOptions }} 
+        args:
+          - "--topic"
+          - {{ .Values.consumer.topic | quote }}
+          - "--brokerServiceURL"
+          - {{ .Values.consumer.brokerServiceURL | quote }} 
+          - "--subscription"
+          - {{ .Values.consumer.subscription | quote }}
