@@ -19,7 +19,7 @@ public class BasicPulsarProducer {
 	@Parameter(names = { "-t", "--topic" }, description = "topic-name")
 	private String topic;
 
-	@Parameter(names = { "--brokerServiceURL" }, description = "brokeradress")
+	@Parameter(names = { "--brokerServiceURL" }, description = "broker address")
 	private String brokerServiceURL = "pulsar://localhost:6650";
 
 	@Parameter(names = { "--waitMs" }, description = "wait time in milliseconds between messages")
